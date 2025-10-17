@@ -85,7 +85,7 @@ const levels = [
     slug: "level-3",
     name: "Level 3 - The Impossible Jump",
     hint:
-      "Run player.setJumpHeight(25) in the console. The player API is exposed as window.player.",
+      "Run player.setJumpHeight(11) in the console. The player API is exposed as window.player.",
     initialStatus:
       "Even full speed is not enough. Maybe rewrite the rules of physics?",
     basicHint: "Maybe there's a debug hook that tweaks your jump height.",
@@ -93,7 +93,7 @@ const levels = [
     playerStart: { x: 80, y: 280 },
     platforms: [
       { x: 0, y: 320, width: 640, height: 40 },
-      { x: 180, y: 240, width: 120, height: 20 },
+      // { x: 180, y: 240, width: 120, height: 20 },
       { x: 360, y: 200, width: 100, height: 20 },
     ],
     coins: [
@@ -111,7 +111,6 @@ const levels = [
       engine.callbacks.onStatus(
         "Someone left debugging hooks around here..."
       );
-      engine.setJumpStrength(11);
     },
   },
   {
@@ -206,7 +205,7 @@ const levels = [
 
       const submit = () => {
         const attempt = input.value.trim();
-        if (attempt === "retroHacker1985") {
+        if (attempt === "6hadowHac7er") {
           feedback.textContent = "Access granted. Proceed!";
           engine.triggerLevelComplete();
         } else {

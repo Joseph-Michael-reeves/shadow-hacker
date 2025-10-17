@@ -3,7 +3,7 @@ const MAX_FALL_SPEED = 10;
 
 const DEFAULTS = {
   moveSpeed: 3.0,
-  jumpStrength: 8.5,
+  jumpStrength: 8,
   renderScale: 1.5,
 };
 
