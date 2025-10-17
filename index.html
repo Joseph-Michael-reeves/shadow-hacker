@@ -1,0 +1,50 @@
+<!-- To publish: push to GitHub and enable GitHub Pages (Settings → Pages → Source: main / root). -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacking Mario</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <noscript>
+      <div class="noscript-warning">
+        Hacking Mario needs JavaScript. Enable it to start hacking.
+      </div>
+    </noscript>
+    <div class="page">
+      <header class="title">Hacking Mario</header>
+      <main>
+        <div class="game-shell">
+          <div id="game-window">
+            <div id="game-area" aria-live="polite">Loading...</div>
+          </div>
+        </div>
+        <section id="hud">
+          <div id="level-label"></div>
+          <div id="status-message"></div>
+          <div id="coin-counter" aria-live="polite">Coins: 0</div>
+        </section>
+        <section id="hint-section">
+          <div class="hint-card" id="basic-hint-card">
+            <h3>Quick Nudge</h3>
+            <button id="basic-hint-toggle" type="button">Show Quick Hint</button>
+            <div id="basic-hint-content" hidden></div>
+          </div>
+          <div class="hint-card" id="advanced-hint-card">
+            <h3>Deep Hack</h3>
+            <button id="hint-toggle" type="button">Show Hacker's Hint</button>
+            <div id="hint-content" hidden></div>
+          </div>
+        </section>
+      </main>
+      <footer class="controls">
+        Controls: WASD or Arrow Keys to move & jump. Press R to reset the
+        level.
+      </footer>
+    </div>
+    <!-- The password is: retroHacker1985 -->
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

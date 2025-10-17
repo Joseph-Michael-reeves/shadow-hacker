@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sprite Animator Demo</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-family: "Courier New", Courier, monospace;
+      }
+      #game {
+        width: 256px;
+        height: 256px;
+        image-rendering: pixelated;
+        background: #1e293b;
+        border: 2px solid #38bdf8;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      }
+      .hud {
+        position: fixed;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="game" width="256" height="256"></canvas>
+    <div class="hud">1: Loop • 2: Ping-Pong • 3: Reverse • Space: Pause</div>
+    <script type="module">
+      import SpriteAnimator from "../spriteAnimator.js";
+
+      const canvas = document.getElementById("game");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      ctx.imageSmoothingEnabled = false;
+
+      const anim = new SpriteAnimator({
+        imageSrc: "../assets/2BBE37CF-D99E-47B3-8F47-0E38EAD5E9CA.png",
+        cols: 8,
+        rows: 9,
+        frameW: 32,
+        frameH: 32,
+        scale: 4,
+        fps: 12,
+      }).attach(ctx);
+
+      window.anim = anim;
+
+      let paused = false;
+      const rowIndex = 7; // Row 3 is the walking animation.
+      const frameCount = 7; // Row 3 uses seven filled cells; skip the blank tile.
+      anim.playRow(rowIndex, {
+        startCol: 0,
+        frames: frameCount,
+        fps: 14,
+        pingPong: false,
+      });
+
+      let lastTime = performance.now();
+
+      function ensureCanvasSize() {
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.round(rect.width);
+        const height = Math.round(rect.height);
+        if (width && height && (canvas.width !== width || canvas.height !== height)) {
+          canvas.width = width;
+          canvas.height = height;
+          ctx.imageSmoothingEnabled = false;
+        }
+      }
+
+      function loop(time) {
+        ensureCanvasSize();
+        const dt = (time - lastTime) / 1000;
+        lastTime = time;
+        if (!paused) {
+          anim.update(dt);
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const frameW = (anim.frameW || 0) * anim.scale;
+        const frameH = (anim.frameH || 0) * anim.scale;
+        const posX = (canvas.width - frameW) / 2;
+        const posY = (canvas.height - frameH) / 2;
+        anim.setPosition(posX, posY);
+        anim.draw();
+
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      window.addEventListener("keydown", (event) => {
+        if (event.code === "Digit1") {
+          anim.playRow(rowIndex, {
+            startCol: 0,
+            frames: frameCount,
+            fps: 10,
+            pingPong: false,
+            reverse: false,
+          });
+        } else if (event.code === "Digit2") {
+          anim.playRow(rowIndex, {
+            startCol: 0,
+            frames: frameCount,
+            fps: 14,
+            pingPong: true,
+            reverse: false,
+          });
+        } else if (event.code === "Digit3") {
+          anim.playRow(rowIndex, {
+            startCol: 0,
+            frames: frameCount,
+            fps: 14,
+            pingPong: false,
+            reverse: true,
+          });
+        } else if (event.code === "Space") {
+          event.preventDefault();
+          paused = !paused;
+        }
+      });
+    </script>
+  </body>
+</html>
