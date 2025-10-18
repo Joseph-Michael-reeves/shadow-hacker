@@ -195,11 +195,11 @@ body {
   content: "";
   position: absolute;
   pointer-events: none;
-  width: var(--hitbox-width, 28px);
+  /* width: var(--hitbox-width, 28px);
   height: var(--hitbox-height, 39px);
   left: calc((100% - var(--hitbox-width, 28px)) / 2);
   bottom: 0;
-  border: 1px dashed rgba(255, 255, 255, 0.7);
+  border: 1px dashed rgba(255, 255, 255, 0.7); */
 }
 
 .platform {
